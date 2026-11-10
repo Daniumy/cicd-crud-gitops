@@ -19,3 +19,9 @@ Desired state of the cluster. Nothing is applied by hand from here except `infra
 - **Config change:** edit the overlay's `config.js`. Kustomize hashes the ConfigMap name, so pods restart by themselves.
 - **Drift:** manual `kubectl` edits get reverted (`selfHeal`); files deleted from Git get deleted from the cluster (`prune`).
 - **Rollback:** `git revert` the `deploy(...)` commit.
+
+## How this repo fits in the global flow
+
+This repo is the **CD half** of a two-repo delivery setup. Jenkins (from [`cicd-crud-webapp`](https://github.com/Daniumy/cicd-crud-webapp)) builds the image and commits the new `newTag` here (step 4 below). ArgoCD watches this repo and syncs the cluster to match it (steps 5 to 8). Nothing else deploys the app.
+
+![End-to-end delivery flow](docs/overview.svg)

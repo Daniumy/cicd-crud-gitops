@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 640" width="1400" height="640" role="img" aria-labelledby="ttl">
+  <title id="ttl">End-to-end delivery flow: git push, Jenkins, Artifact Registry and GitOps repo, ArgoCD, Kubernetes</title>
+  <defs>
+    <marker id="a" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#475569"/></marker>
+    <style>
+      text{font-family:Inter,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+      .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+      .box{fill:#fff;stroke:#cbd5e1;stroke-width:1.5}
+      .t{font-size:14px;font-weight:600;fill:#0f172a}
+      .s{font-size:11px;fill:#64748b}
+      .l{font-size:11px;font-weight:500;fill:#475569}
+      .h{font-size:22px;font-weight:700;fill:#0f172a}
+      .ln{stroke:#475569;stroke-width:1.6;fill:none;marker-end:url(#a)}
+      .dash{stroke-dasharray:5 4}
+      .nb{fill:#0f172a}
+      .nt{font-size:11px;font-weight:700;fill:#fff;text-anchor:middle}
+    </style>
+  </defs>
+
+  <rect x="0.75" y="0.75" width="1398.5" height="638.5" rx="16" fill="#f8fafc" stroke="#e2e8f0"/>
+  <text x="30" y="42" class="h">End-to-end delivery flow</text>
+  <text x="30" y="64" class="s" style="font-size:12px">git push, Jenkins builds and bumps the tag, ArgoCD syncs the cluster. Jenkins never touches Kubernetes.</text>
+
+  <!-- Kubernetes cluster -->
+  <rect x="970" y="50" width="400" height="520" rx="16" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <text x="990" y="76" class="t" style="font-size:13px;fill:#475569">Kubernetes cluster</text>
+
+  <!-- Developer -->
+  <rect class="box" x="30" y="245" width="110" height="90" rx="10"/>
+  <rect x="44" y="257" width="28" height="4" rx="2" fill="#475569"/>
+  <text x="44" y="288" class="t">Developer</text>
+  <text x="44" y="307" class="s mono">git push</text>
+
+  <!-- webapp repo -->
+  <rect class="box" x="190" y="245" width="170" height="90" rx="10"/>
+  <rect x="204" y="257" width="28" height="4" rx="2" fill="#4f46e5"/>
+  <text x="204" y="288" class="t">cicd-crud-webapp</text>
+  <text x="204" y="307" class="s">GitHub · app + Dockerfile</text>
+  <text x="204" y="323" class="s">develop / main</text>
+
+  <!-- Jenkins -->
+  <rect class="box" x="410" y="245" width="170" height="90" rx="10"/>
+  <rect x="424" y="257" width="28" height="4" rx="2" fill="#dc2626"/>
+  <text x="424" y="288" class="t">Jenkins</text>
+  <text x="424" y="307" class="s">VM · Jenkinsfile</text>
+  <text x="424" y="323" class="s">lint, build, push, bump</text>
+
+  <!-- GitOps repo -->
+  <rect class="box" x="710" y="85" width="190" height="100" rx="10"/>
+  <rect x="724" y="97" width="28" height="4" rx="2" fill="#4f46e5"/>
+  <text x="724" y="128" class="t">cicd-crud-gitops</text>
+  <text x="724" y="147" class="s">GitHub · branch main</text>
+  <text x="724" y="163" class="s">desired state of the cluster</text>
+
+  <!-- Artifact Registry -->
+  <rect class="box" x="710" y="330" width="190" height="100" rx="10"/>
+  <rect x="724" y="342" width="28" height="4" rx="2" fill="#2563eb"/>
+  <text x="724" y="373" class="t">Artifact Registry</text>
+  <text x="724" y="392" class="s">GCP · europe-southwest1</text>
+  <text x="724" y="408" class="s mono">chollos/web:&lt;sha&gt;</text>
+
+  <!-- Users -->
+  <rect class="box" x="710" y="470" width="190" height="80" rx="10"/>
+  <rect x="724" y="482" width="28" height="4" rx="2" fill="#475569"/>
+  <text x="724" y="513" class="t">Users</text>
+  <text x="724" y="532" class="s">dev. and prod domains</text>
+
+  <!-- ArgoCD -->
+  <rect class="box" x="990" y="95" width="360" height="80" rx="10"/>
+  <rect x="1004" y="107" width="28" height="4" rx="2" fill="#0d9488"/>
+  <text x="1004" y="138" class="t">ArgoCD</text>
+  <text x="1004" y="157" class="s">app-dev + app-prod · auto-sync, prune, selfHeal</text>
+
+  <!-- namespaces -->
+  <g>
+    <rect x="990" y="235" width="170" height="190" rx="10" fill="#fff7ed" stroke="#ea580c" stroke-width="1.5"/>
+    <text x="1004" y="262" class="t" style="fill:#9a3412">chollos-dev</text>
+    <text x="1004" y="278" class="s mono" style="font-size:10px">dev.chollosfuentealamo.com</text>
+    <rect x="1002" y="297" width="146" height="44" rx="8" fill="#fff" stroke="#fdba74"/>
+    <text x="1014" y="316" class="t" style="font-size:12px">web pod</text>
+    <text x="1014" y="332" class="s" style="font-size:10px">nginx · image tag = sha</text>
+    <rect x="1002" y="353" width="146" height="44" rx="8" fill="#fff" stroke="#fdba74"/>
+    <text x="1014" y="372" class="t" style="font-size:12px">ConfigMap</text>
+    <text x="1014" y="388" class="s mono" style="font-size:10px">config.js (dev)</text>
+  </g>
+  <g>
+    <rect x="1180" y="235" width="170" height="190" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+    <text x="1194" y="262" class="t" style="fill:#166534">chollos-prod</text>
+    <text x="1194" y="278" class="s mono" style="font-size:10px">chollosfuentealamo.com</text>
+    <rect x="1192" y="297" width="146" height="44" rx="8" fill="#fff" stroke="#86efac"/>
+    <text x="1204" y="316" class="t" style="font-size:12px">web pod</text>
+    <text x="1204" y="332" class="s" style="font-size:10px">nginx · image tag = sha</text>
+    <rect x="1192" y="353" width="146" height="44" rx="8" fill="#fff" stroke="#86efac"/>
+    <text x="1204" y="372" class="t" style="font-size:12px">ConfigMap</text>
+    <text x="1204" y="388" class="s mono" style="font-size:10px">config.js (prod)</text>
+  </g>
+
+  <!-- Traefik -->
+  <rect class="box" x="990" y="470" width="360" height="80" rx="10"/>
+  <rect x="1004" y="482" width="28" height="4" rx="2" fill="#0891b2"/>
+  <text x="1004" y="513" class="t">Traefik ingress + cert-manager</text>
+  <text x="1004" y="532" class="s">routes by host · HTTPS certificates from Let's Encrypt</text>
+
+  <!-- arrows -->
+  <path class="ln" d="M140 290 H190"/>
+  <path class="ln" d="M360 290 H410"/>
+  <path class="ln" d="M580 268 C645 268 645 135 710 135"/>
+  <path class="ln" d="M580 312 C645 312 645 380 710 380"/>
+  <path class="ln dash" d="M990 135 H900"/>
+  <path class="ln" d="M1075 175 V235"/>
+  <path class="ln" d="M1265 175 V235"/>
+  <path class="ln dash" d="M990 395 H900"/>
+  <path class="ln" d="M900 510 H990"/>
+  <path class="ln" d="M1075 470 V425"/>
+  <path class="ln" d="M1265 470 V425"/>
+
+  <!-- step badges + labels -->
+  <g><circle class="nb" cx="165" cy="268" r="10"/><text class="nt" x="165" y="272">1</text><text class="l" x="165" y="314" text-anchor="middle">push</text></g>
+  <g><circle class="nb" cx="385" cy="268" r="10"/><text class="nt" x="385" y="272">2</text><text class="l" x="385" y="314" text-anchor="middle">trigger</text></g>
+  <g><circle class="nb" cx="645" cy="350" r="10"/><text class="nt" x="645" y="354">3</text><text class="l" x="630" y="368" text-anchor="end">push image</text></g>
+  <g><circle class="nb" cx="645" cy="201" r="10"/><text class="nt" x="645" y="205">4</text><text class="l" x="630" y="189" text-anchor="end">bump newTag</text></g>
+  <g><circle class="nb" cx="945" cy="115" r="10"/><text class="nt" x="945" y="119">5</text><text class="l" x="945" y="157" text-anchor="middle">watches</text></g>
+  <g><circle class="nb" cx="1075" cy="205" r="10"/><text class="nt" x="1075" y="209">6</text><text class="l" x="1091" y="209">sync</text></g>
+  <g><circle class="nb" cx="945" cy="375" r="10"/><text class="nt" x="945" y="379">7</text><text class="l" x="945" y="417" text-anchor="middle">pulls image</text></g>
+  <g><circle class="nb" cx="945" cy="490" r="10"/><text class="nt" x="945" y="494">8</text><text class="l" x="945" y="532" text-anchor="middle">HTTPS</text></g>
+  <text class="l" x="1091" y="452">route by host</text>
+
+  <!-- branch table -->
+  <rect class="box" x="30" y="400" width="550" height="170" rx="10"/>
+  <text x="50" y="430" class="t">Branch decides the environment</text>
+  <g>
+    <text x="50" y="466" class="s mono" style="font-size:12px;fill:#0f172a">develop</text>
+    <text x="150" y="466" class="s" style="font-size:12px">→</text>
+    <rect x="175" y="451" width="52" height="22" rx="11" fill="#ea580c"/><text x="201" y="466" class="nt">dev</text>
+    <text x="245" y="466" class="s mono" style="font-size:11px">dev.chollosfuentealamo.com</text>
+  </g>
+  <g>
+    <text x="50" y="504" class="s mono" style="font-size:12px;fill:#0f172a">main</text>
+    <text x="150" y="504" class="s" style="font-size:12px">→</text>
+    <rect x="175" y="489" width="52" height="22" rx="11" fill="#16a34a"/><text x="201" y="504" class="nt">prod</text>
+    <text x="245" y="504" class="s mono" style="font-size:11px">chollosfuentealamo.com</text>
+  </g>
+  <g>
+    <text x="50" y="542" class="s mono" style="font-size:12px;fill:#0f172a">feature/*</text>
+    <text x="150" y="542" class="s" style="font-size:12px">→</text>
+    <rect x="175" y="527" width="52" height="22" rx="11" fill="#94a3b8"/><text x="201" y="542" class="nt">CI only</text>
+    <text x="245" y="542" class="s" style="font-size:11px">lint + build, nothing is deployed</text>
+  </g>
+
+  <text x="30" y="612" class="s">Solid arrow = push or trigger · dashed arrow = pull · numbers = order of events · rollback = git revert the deploy commit in the gitops repo</text>
+</svg>
