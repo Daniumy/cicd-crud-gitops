@@ -2,38 +2,7 @@
 
 Desired state of the cluster. Nothing is applied by hand from here except `infra/`: ArgoCD watches `main` and makes the cluster match it.
 
-```mermaid
-flowchart TD
-  jenkins(["Jenkins<br/>(from the webapp repo)"]) -- "commit: newTag = sha" --> overlay
-
-  subgraph REPO["This repo (branch main)"]
-    direction TB
-    appdev["argocd/app-dev.yaml"]
-    appprod["argocd/app-prod.yaml"]
-    base["app/base<br/>Deployment, Service"]
-    overlay["app/overlays/dev | prod<br/>namespace, Ingress,<br/>config.js, image + newTag"]
-    infra["infra/<br/>ClusterIssuer, ArgoCD ingress"]
-    base --> overlay
-  end
-
-  appdev -- "path: app/overlays/dev" --> argo
-  appprod -- "path: app/overlays/prod" --> argo
-  argo["ArgoCD<br/>auto-sync, prune, selfHeal"]
-
-  argo -- "kustomize build + apply" --> ns
-
-  subgraph ns["Cluster: one namespace per env"]
-    direction LR
-    dep["Deployment web<br/>nginx image"]
-    cm["ConfigMap web-config<br/>mounted as /config.js"]
-    svc["Service web"]
-    ing["Ingress<br/>TLS via cert-manager"]
-    ing --> svc --> dep
-    cm -.-> dep
-  end
-
-  infra -. "kubectl apply (manual, not watched by ArgoCD)" .-> cluster["cert-manager + ArgoCD UI exposure"]
-```
+![GitOps repo layout and ArgoCD sync](docs/gitops-flow.svg)
 
 ## Layout
 
