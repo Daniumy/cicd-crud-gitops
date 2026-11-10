@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/Daniumy/chollosfuentealamo-gitops.git
+    repoURL: https://github.com/Daniumy/cicd-crud-gitops.git
     targetRevision: main
     path: app/overlays/dev          # ArgoCD detecta solo que es Kustomize
   destination:
